@@ -5,9 +5,7 @@ if (typeof window.PlayList === "undefined") {
   window.PlayList = {};
 }
 
-var Search = PlayList.Search = function () {
-
-};  
+var Search = PlayList.Search = function () {};  
 
 Search.handleAPILoaded = function () {
   $('#search-button').attr('disabled', false);

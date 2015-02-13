@@ -1,14 +1,13 @@
 (function() {
-	if (typeof window.PlayList === "undefined") {
-		window.PlayList = {};
-	}
+if (typeof window.PlayList === "undefined") {
+	window.PlayList = {};
+}
 
-	var VideoHome = PlayList.VideoHome = function () {
-		var videos = [];
-	}
+var VideoHome = PlayList.VideoHome = function () {};
 
+var videos = [];
 
-	function findDefinedVideo(videos) {
+function findDefinedVideo(videos) {
   var id;
   for (var i in videos) {
     id = videos[i].id;
