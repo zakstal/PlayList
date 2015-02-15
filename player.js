@@ -8,6 +8,7 @@
     var player;
   } 
 
+  var Videos = PlayList.VideoHome;
   var tag = document.createElement('script');
 
   tag.src = "https://www.youtube.com/iframe_api";
@@ -29,22 +30,43 @@
     });
   }
 
+  Player.playFirstVideo = function () {
+    cueVideoOrMakePlayer(); 
+  }
+
   // 4. The API will call this function when the video player is ready.
   function onPlayerReady(event) {
     event.target.playVideo();
   }
 
-  // 5. The API calls this function when the player's state changes.
-  //    The function indicates that when playing a video (state=1),
-  //    the player should play for six seconds and then stop.
-  var done = false;
-  function onPlayerStateChange(event) {
-    // if (event.data == YT.PlayerState.PLAYING && !done) {
-    //   setTimeout(stopVideo, 6000);
-    //   done = true;
-    // }
-    console.log("state change in on player state change")
+  function playVideo(){
+    player.playVideo();
   }
+
+  function cueVideoOrMakePlayer() {
+    Videos.nextVideo()
+    var vcode = Videos.currentVideo().id;
+    if (typeof player.M === "undefined") {
+       Player.onYouTubeIframeAPIReady(vcode);
+     } else {
+      player.cueVideoById(vcode);
+    }
+  }
+
+  // 5. The API calls this function when the player's state changes.
+  function onPlayerStateChange(event) {
+    var state = player.getPlayerState();
+    if (state === 0) {   
+      cueVideoOrMakePlayer();
+    } else if (state === 5) {
+      playVideo();
+    }
+  }
+
+  function closeAdListener() {
+    var closeButton = document.getElementById
+  }
+
   function stopVideo() {
     player.stopVideo();
   }
