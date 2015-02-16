@@ -25,7 +25,8 @@
       videoId: vcode,
       events: {
         'onReady': onPlayerReady,
-        'onStateChange': onPlayerStateChange
+        'onStateChange': onPlayerStateChange,
+        'onError': onPlayerError
       }
     });
   }
@@ -34,9 +35,18 @@
     cueVideoOrMakePlayer(); 
   }
 
+  Player.playSelectedVideo = function (vcode) {
+    player.cueVideoById(vcode);
+    Videos.playSelected(vcode);
+  }
+
   // 4. The API will call this function when the video player is ready.
   function onPlayerReady(event) {
     event.target.playVideo();
+  }
+
+  function onPlayerError() {
+    cueVideoOrMakePlayer();
   }
 
   function playVideo(){
@@ -44,8 +54,7 @@
   }
 
   function cueVideoOrMakePlayer() {
-    Videos.nextVideo()
-    var vcode = Videos.currentVideo().id;
+    var vcode = Videos.nextVideo()
     if (typeof player.M === "undefined") {
        Player.onYouTubeIframeAPIReady(vcode);
      } else {
@@ -61,10 +70,6 @@
     } else if (state === 5) {
       playVideo();
     }
-  }
-
-  function closeAdListener() {
-    var closeButton = document.getElementById
   }
 
   function stopVideo() {

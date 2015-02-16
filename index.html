@@ -29,7 +29,7 @@
     p {
       text-align: center;
       border: 1px solid #eee;
-      padding: 6px 3px 6px 3px;
+      padding: 19px 3px 19px 3px;
       margin: 0 3px 0 3px;
       background: #eee;
     }
@@ -116,30 +116,75 @@
     }
 
     .selector-container {
+      position: relative;
       padding: 5px;
       margin: 3px;
       background: #eee;
       border: 1px solid #aaa;
+      cursor: pointer;
+      -webkit-transition: all ease-in-out 1s;
+      -moz-transition: all ease-in-out 1s;
+      -o-transition: all ease-in-out 1s;
+      transition: all ease-in-out 1s;
+      top: 0px;
+    }
+
+    .selector-container:hover > img {
+      width: 60px;
+      height: 55px;
+    }
+
+    .selector-container:hover > p {
+      width: 163px;
     }
 
     .selector-container img {
       float: left;
-      width: 70px;
-      height: 55px;
+      width: 40px;
+      height: 33px;
       margin-right: 3px;
+      -webkit-transition: all 0.2s;
+      -moz-transition: all 0.2s;
+      -o-transition: all 0.2s;
+      transition: all 0.2s;
     }
 
     .selector-container p {
       box-sizing: border-box;
       overflow: hidden;
       background: transparent;
-      padding: 5px 3px;
+      text-align: left;
+      padding: 8px 3px;
       border: none;
       float: left;
-      width: 124px;
-      height: 55px;
+      width: 183px;
+      height: 33px;
       padding-right: 3px;
+      -webkit-transition: all 0.2s;
+      -moz-transition: all 0.2s;
+      -o-transition: all 0.2s;
+      transition: all 0.2s;
     }
+
+    .selector-container:nth-child(9) {
+      position: relative;
+      /*left: -400px;*/
+      background: #E3EFFF;
+    }
+
+    .selector-container:nth-child(9) img {
+      width: 60px;
+      height: 55px;
+    }
+
+    .selector-container:nth-child(9) p {
+      width: 163px;
+    }
+
+    .offset {
+      top: -500px;
+    }
+
 
   </style>
   <div id="buttons">
@@ -161,16 +206,14 @@
            <label> <input id="query" class="basic-search-format" value='wingsuit' type="text"/><button id="search-button" class="basic-search-format" >Search</button></label>
         </div>
         <div id="view-and-search-window">
-        
           <div id="search-container">
-           
             <div id="player"></div>
           </div>
           <div id="upcoming-video-container" class="video-containers">
-            <p>Upcoming Videos</p>
+            
           </div>
           <div id="viewed-video-container" class="video-containers">
-            <p>Viewed Videos</p>
+            <!-- <p>Viewed Videos</p> -->
           </div>
           <div id="current-video-container"></div>
         </div>

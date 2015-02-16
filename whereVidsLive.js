@@ -34,7 +34,10 @@ function makeVidObject(resVideo) {
     id: resVideo.id.videoId,
     title: resVideo.snippet.title,
     thumbnails: resVideo.snippet.thumbnails,
-    publishedAt: resVideo.snippet.publishedAt
+    publishedAt: resVideo.snippet.publishedAt,
+    isVideo: function(vcode) {
+    	vcode === this.id;
+    }
   };
 }
 
@@ -44,7 +47,7 @@ function makeVidObject(resVideo) {
   response.items.forEach(function(resVideo, idx) {
     var video = makeVidObject(resVideo)
     titles.push(resVideo.snippet.title)
-  	videos.push(video);
+  	if (typeof video !== "undefined") videos.push(video);
   });
 
   // VideoHome.nextVideo();
@@ -54,20 +57,27 @@ function makeVidObject(resVideo) {
   return videos;
 }
 
- VideoHome.nextVideo = function() {
+VideoHome.nextVideo = function() {
 	var upComingVideo = videos.shift();
 	var justPlayedVideo = currentVideo;
 	if (typeof currentVideo !== "undefined") playedVideos.push(justPlayedVideo);
 	currentVideo = upComingVideo;
+	return currentVideo.id
 }
 
-function addTitlesToScreen(titles) {
-  var $ul = $('<ul>');
-  titles.forEach(function(title){
-    $ul.append('<li>' + title + '</li>' )
-  });
+VideoHome.playSelected = function(vcode) {
+	var video = returnVideo(vcode);
+	var idx = videos.indexOf(video);
+	videos.splice(idx, 1);
+	var justPlayedVideo = currentVideo;
+	currentVideo = video;
+	playedVideos.push(justPlayedVideo);
+}
 
-  $('#upcoming-video-container').append($ul)
+function returnVideo(vcode) {
+	for ( var i = 0; i < videos.length; i++) {
+		if (videos[i].isVideo(vcode)) return videos[i];
+	}
 }
 
 }());

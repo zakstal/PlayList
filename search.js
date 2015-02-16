@@ -23,7 +23,7 @@
     var request = gapi.client.youtube.search.list({
       q: q,
       part: 'snippet',
-      maxResults: 10
+      maxResults: 8
     });
     console.log("request", request)
     request.execute(function(response) {
