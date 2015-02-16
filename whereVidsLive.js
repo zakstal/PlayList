@@ -4,6 +4,8 @@ if (typeof window.PlayList === "undefined") {
 	window.PlayList = {};
 }
 
+var playlist = new PlayList.Playlist();
+
 var videos = [];
 var currentVideo;
 var playedVideos = [];
@@ -11,11 +13,11 @@ var playedVideos = [];
 var VideoHome = PlayList.VideoHome = function () {};
 
 VideoHome.videos = function () {
-	return videos;
+	return playlist.currentVideo;
 }
 
 VideoHome.currentVideo = function () {
-	return currentVideo;
+	return playlist.currentVideo;
 }
 
 function findDefinedVideo(videos) {
@@ -41,13 +43,12 @@ function makeVidObject(resVideo) {
   };
 }
 
- VideoHome.putVideosInArray = function(response, playFirstVideo) {
- 	videos = [];
+ VideoHome.loadVideos = function(response, playFirstVideo) {
  	titles = []
   response.items.forEach(function(resVideo, idx) {
     var video = makeVidObject(resVideo)
     titles.push(resVideo.snippet.title)
-  	if (typeof video !== "undefined") videos.push(video);
+  	if (typeof video !== "undefined") playlist.add(video);
   });
 
   // VideoHome.nextVideo();
@@ -58,11 +59,12 @@ function makeVidObject(resVideo) {
 }
 
 VideoHome.nextVideo = function() {
-	var upComingVideo = videos.shift();
-	var justPlayedVideo = currentVideo;
-	if (typeof currentVideo !== "undefined") playedVideos.push(justPlayedVideo);
-	currentVideo = upComingVideo;
-	return currentVideo.id
+	// var upComingVideo = videos.shift();
+	// var justPlayedVideo = currentVideo;
+	// if (typeof currentVideo !== "undefined") playedVideos.push(justPlayedVideo);
+	// currentVideo = upComingVideo;
+	// return currentVideo.id
+	return playlist.nextVideo();
 }
 
 VideoHome.playSelected = function(vcode) {

@@ -17,7 +17,7 @@
 
   // Search for a specified string.
   var videos;
-   Search.search = function () {
+   Search.search = function (loadVideos) {
     console.log("am searching. in Search.search")
     var q = $('#query').val();
     var request = gapi.client.youtube.search.list({
@@ -27,9 +27,7 @@
     });
     console.log("request", request)
     request.execute(function(response) {
-      var playFirstVideo = PlayList.Player.playFirstVideo;
-      PlayList.VideoHome.putVideosInArray(response, playFirstVideo);
-      
+      loadVideos(response)
     });
   }
 

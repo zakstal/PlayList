@@ -1,5 +1,5 @@
 $(function() {
-	
+
 	if (typeof window.PlayList === "undefined") {
 		window.PlayList = {};
 	}
@@ -7,7 +7,12 @@ $(function() {
 	$("#search-button").on('click', function(event){
 			event.preventDefault();
 			console.log("clicked search button")
-			PlayList.Search.search();
+			var playFirstVideo = PlayList.Player.playFirstVideo;
+      		var loadVideos = function (response) {
+      			PlayList.VideoHome.loadVideos(response, playFirstVideo);
+      		};
+
+			PlayList.Search.search(loadVideos);
 	});
 
 
